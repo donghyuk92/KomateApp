@@ -15,12 +15,13 @@ import android.webkit.WebChromeClient;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Button;
 import android.widget.ProgressBar;
 
 /**
  * Created by gellston on 2016-05-21.
  */
-public class Fragment_Webview extends Fragment {
+public class Fragment_Webview extends Fragment implements View.OnClickListener {
     private String mAddress = "http://komate.org";
 
     private WebView mWebView;
@@ -28,16 +29,25 @@ public class Fragment_Webview extends Fragment {
     private ProgressBar mProgressBar;
     private InputMethodManager mInputMethodManager;
 
+    private Button btn_back;
+    private Button btn_front;
+    private Button btn_exit;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_webview, container, false);
 
         mInputMethodManager = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-
         mProgressBar = (ProgressBar) view.findViewById(R.id.progressBar);
-
         mWebView = (WebView) view.findViewById(R.id.webView);
+        btn_back = (Button) view.findViewById(R.id.btn_back);
+        btn_front = (Button) view.findViewById(R.id.btn_front);
+        btn_exit = (Button) view.findViewById(R.id.btn_exit);
+        btn_back.setOnClickListener(this);
+        btn_front.setOnClickListener(this);
+        btn_exit.setOnClickListener(this);
+
         if (Build.VERSION.SDK_INT >= 19) {
             mWebView.setLayerType(View.LAYER_TYPE_HARDWARE, null);
         }
@@ -56,7 +66,7 @@ public class Fragment_Webview extends Fragment {
         mWebView.setWebViewClient(new webViewClient());
         mWebView.loadUrl(mAddress);
 
-        view.setOnKeyListener( new View.OnKeyListener() {
+/*        view.setOnKeyListener( new View.OnKeyListener() {
             @Override
             public boolean onKey( View v, int keyCode, KeyEvent event ) {
                 if(keyCode == KeyEvent.KEYCODE_BACK && event.getRepeatCount() == 0){
@@ -68,7 +78,7 @@ public class Fragment_Webview extends Fragment {
                 return getActivity().onKeyDown(keyCode, event);
             }
         });
-
+*/
         return view;
     }
 
@@ -124,5 +134,33 @@ public class Fragment_Webview extends Fragment {
 
             return super.shouldOverrideUrlLoading(mView, url);
         }
+    }
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_back:
+                mWebView.goBack();
+                break;
+            case R.id.btn_front:
+                mWebView.goForward();
+                break;
+            case R.id.btn_exit:
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    public void onDetach(){
+        super.onDetach();
+        mWebView.removeAllViews();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        mWebView.clearCache(true);
+        mWebView.destroy();
     }
 }
