@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:id="@+id/webviewframe">
+
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="vertical"
+        tools:context=".MainActivity" >
+        <!-- android:orientation는 정렬 방향으로
+         vertical은 위에서 아래로
+         horizontal은 왼쪽에서 오른쪽으로 정렬하는 방식입니다 -->
+        <!--
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:orientation="horizontal" >
+                -->
+        <!-- focusable과 focusableInTouchMode를 사용한 이유 :
+        처음에 액티비티에 EditText가 있을경우 포커스가 EditText로 먼저 가므로
+        이를 방지하기 위함입니다
+
+        저 문구가 없을경우 어플을 실행하면 키보드가 나타납니다 -->
+        <!--
+                <EditText
+                    android:id="@+id/addressInput"
+                    android:inputType="textUri"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:singleLine="true"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/goBtn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#00ffffff"
+                    android:layout_weight="0"
+                    android:onClick="GoButton"
+                    android:text="GO" />
+
+            </LinearLayout>
+        -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:max="100"
+            android:progress="0" />
+
+        <WebView
+            android:id="@+id/webView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </LinearLayout>
+
+</FrameLayout>
